@@ -16,13 +16,13 @@ export const CurrentUserContext = createContext(null);
 function App() {
   const [count, setCount] = useState(0)
   const [context, setContext] = useState({users: [{name: "Cody",email: "cody@test.com",password: "test", balance: 100, transactionHistory: []}]});
-  const [currentContext, setCurrentContext] = useState({});
+  const [currentContext, setCurrentContext] = useState(null);
 
   return (
     <HashRouter>
-      <NavBar />
-        <UserContext.Provider value={[context, setContext]}>
-        <CurrentUserContext.Provider value={[currentContext, setCurrentContext]}>
+      <UserContext.Provider value={[context, setContext]}>
+      <CurrentUserContext.Provider value={[currentContext, setCurrentContext]}>
+        <NavBar />
         <div className="container" style={{ padding: "20px" }}>
           <Routes>
             <Route exact path="/" element={<Home />} />
@@ -35,7 +35,7 @@ function App() {
             <Route path="/history" element={<TransactionHistory />} />
           </Routes>
         </div>
-        </CurrentUserContext.Provider>
+      </CurrentUserContext.Provider>
       </UserContext.Provider>
     </HashRouter>
   );

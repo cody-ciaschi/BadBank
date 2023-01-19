@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { UserContext, CurrentUserContext } from "../App";
 import Card from "./card";
+import { Form, Button } from "react-bootstrap";
 
 export default function Login() {
   let [email, setEmail] = useState("");
@@ -29,29 +30,33 @@ export default function Login() {
           bgcolor="primary"
           header="Login"
           body={
-            <form onSubmit={checkUser}>
-              Email Address <br />
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Enter email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              ></input>{" "}
-              <br />
-              Password <br />
-              <input
-                type="password"
-                className="form-control"
-                placeholder="Enter password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              ></input>{" "}
-              <br />
-              <button type="submit" className="btn btn-light">
-                Login
-              </button>
-            </form>
+            <Form onSubmit={checkUser}>
+              
+              <Form.Group className="mb-3" controlId="formEmail">
+                <Form.Label>Email Address</Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder="Enter email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="formPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Enter password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Form.Group>
+
+              <Button variant="light" type="submit">
+                Submit
+              </Button>
+
+            </Form>
           }
         />
       )}

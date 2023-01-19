@@ -1,9 +1,11 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../App";
 import Card from "./card";
+import { Form, Button } from "react-bootstrap";
 
 export default function CreateAccount() {
   const [show, setShow] = useState(true);
+  const [showAcctBtn, setShowAcctBtn] = useState(false);
   const [status, setStatus] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -16,6 +18,13 @@ export default function CreateAccount() {
       setTimeout(() => setStatus(""), 3000);
       return false;
     }
+
+    switch(label) {
+      case "email" : {
+
+      }
+    }
+
     return true;
   }
 
@@ -24,8 +33,11 @@ export default function CreateAccount() {
     if (!validate(name, "name")) return;
     if (!validate(email, "email")) return;
     if (!validate(password, "password")) return;
-    let newUsersArray = [...ctx.users, { name, email, password, balance: 100, transactionHistory: [] }];
-    setCtx({...ctx, users:newUsersArray});
+    let newUsersArray = [
+      ...ctx.users,
+      { name, email, password, balance: 100, transactionHistory: [] },
+    ];
+    setCtx({ ...ctx, users: newUsersArray });
     setShow(false);
   }
 
@@ -43,48 +55,46 @@ export default function CreateAccount() {
       status={status}
       body={
         show ? (
-          <>
-            Name
-            <br />
-            <input
-              type="input"
-              className="form-control"
-              id="name"
-              placeholder="Enter name"
-              value={name}
-              onChange={(e) => setName(e.currentTarget.value)}
-            />
-            <br />
-            Email address
-            <br />
-            <input
-              type="input"
-              className="form-control"
-              id="email"
-              placeholder="Enter email"
-              value={email}
-              onChange={(e) => setEmail(e.currentTarget.value)}
-            />
-            <br />
-            Password
-            <br />
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              placeholder="Enter password"
-              value={password}
-              onChange={(e) => setPassword(e.currentTarget.value)}
-            />
-            <br />
-            <button
-              type="submit"
-              className="btn btn-light"
-              onClick={handleCreate}
-            >
-              Create Account
-            </button>
-          </>
+          <Form onSubmit={handleCreate}>
+
+            <Form.Group className="mb-3" controlId="formName">
+              <Form.Label>Name</Form.Label>
+              <Form.Control 
+                type="input"
+                id="name"
+                placeholder="Enter Name"
+                value={name}
+                onChange={(e) => setName(e.currentTarget.value)}
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formEmail">
+              <Form.Label>Email Address</Form.Label>
+                <Form.Control 
+                  type="email"
+                  id="email"
+                  placeholder="Enter email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.currentTarget.value)}
+                ></Form.Control>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formPassword">
+              <Form.Label>Password</Form.Label>
+                <Form.Control 
+                  type="password"
+                  id="password"
+                  placeholder="Enter password"
+                  value={password}
+                  onChange={(e) => setPassword(e.currentTarget.value)}
+                ></Form.Control>
+            </Form.Group>
+
+            <Button variant="light" type="submit">
+              Submit
+            </Button>
+
+          </Form>
         ) : (
           <>
             <h5>Success</h5>

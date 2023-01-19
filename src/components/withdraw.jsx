@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { UserContext, CurrentUserContext } from "../App";
- import Card from "./card";
+import Card from "./card";
+import { Container, Form, Button } from "react-bootstrap";
 
 export default function Withdraw() {
   const [ctx, setCtx] = useContext(UserContext);
@@ -8,6 +9,11 @@ export default function Withdraw() {
   const [amount, setAmount] = useState(0);
 
   function handleSubmit() {
+    if (Number(amount) <= 0) {
+      window.alert("Please enter a number above 0.");
+      return;
+    }
+
     if (currentCtx.balance >= amount) {
       let newBalance = currentCtx.balance - amount;
       setCurrentCtx({...currentCtx,
@@ -31,28 +37,30 @@ export default function Withdraw() {
   }
 
   return (
-    <>
+    <Container>
       <h1>Welcome, {currentCtx.name}!</h1>
       <Card
         bgcolor="secondary"
         header="Withdraw"
         body={
-          <form onSubmit={handleSubmit}>
-            <h3>Current Balance {currentCtx.balance}</h3>
-            <input
-              type="number"
-              className="form-control"
-              placeholder="Enter withdraw amount"
-              value={amount}
-              onChange={(e) => setAmount(Number(e.target.value))}
-            ></input>{" "}
-            <br />
-            <button type="submit" className="btn btn-light">
+          <Form onSubmit={handleSubmit}>
+
+            <Form.Group className="mb-3" controlId="formAmount">
+              <Form.Label className="h3">Current Balance {currentCtx.balance}</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Enter withdraw amount"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+              />
+            </Form.Group>
+            
+            <Button variant="light" type="submit">
               Withdraw
-            </button>
-          </form>
+            </Button>
+          </Form>
         }
       />
-    </>
+    </Container>
   );
 }

@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { UserContext, CurrentUserContext } from "../App";
 import Card from "./card";
+import { Container, Form, Button } from 'react-bootstrap'
 
 export default function Deposit() {
   const [ctx, setCtx] = useContext(UserContext);
@@ -8,6 +9,13 @@ export default function Deposit() {
   const [amount, setAmount] = useState(0);
 
   function handleSubmit() {
+
+    // Check if amount entered is above 0
+    if (Number(amount) <= 0) {
+      window.alert("Please enter a number above 0.");
+      return;
+    }
+
     let newBalance = currentCtx.balance + Number(amount);
     setCurrentCtx({...currentCtx, 
       balance:newBalance,
@@ -27,28 +35,30 @@ export default function Deposit() {
   }
 
   return (
-    <>
+    <Container>
       <h1>Welcome, {currentCtx.name}!</h1>
       <Card
         bgcolor="success"
         header="Deposit"
         body={
-          <form onSubmit={handleSubmit}>
-            <h3>Current Balance {currentCtx.balance}</h3>
-            <input
-              type="number"
-              className="form-control"
-              placeholder="Enter deposit amount"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-            ></input>{" "}
-            <br />
-            <button type="submit" className="btn btn-light">
+          <Form onSubmit={handleSubmit}>
+
+            <Form.Group className="mb-3" controlId="formAmount">
+              <Form.Label className="h3">Current Balance {currentCtx.balance}</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Enter deposit amount"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+              />
+            </Form.Group>
+            
+            <Button variant="light" type="submit">
               Deposit
-            </button>
-          </form>
+            </Button>
+          </Form>
         }
       />
-    </>
+    </Container>
   );
 }

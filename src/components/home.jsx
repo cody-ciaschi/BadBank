@@ -1,13 +1,14 @@
 import Card from "./card";
+import bankPic from "../assets/bankPicture.jpg" 
 
 export default function Home() {
   return (
     <Card
       txtcolor="black"
-      header="BadBank Landing Module"
-      title="Welcome to the bank"
-      text="You can move around using the navigation bar."
-      body={<img src="bank.png" className="img-fluid" alt="Responsive image" />}
+      header="Bank of Cody Homepage"
+      title="Welcome to the Bank of Cody"
+      text="Welcome to the Bank of Cody website. Move around the website using the navigation bar above."
+      body={<img src={bankPic} className="img-fluid" alt="Responsive image" />}
     />
   );
 }

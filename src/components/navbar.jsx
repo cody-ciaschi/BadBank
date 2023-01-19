@@ -1,9 +1,15 @@
+import { Container } from "react-bootstrap";
+import { useContext } from "react";
+import { CurrentUserContext } from "../App";
+
 export default function NavBar() {
+  const [currentCtx, setCurrentCtx] = useContext(CurrentUserContext);
+
   return (
-    <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <Container>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <a className="navbar-brand" href="#">
-          BadBank
+          Bank of Cody
         </a>
         <button
           className="navbar-toggler"
@@ -28,6 +34,9 @@ export default function NavBar() {
                 Login
               </a>
             </li>
+
+            {currentCtx &&
+            <>
             <li className="nav-item">
               <a className="nav-link" href="#/deposit/">
                 Deposit
@@ -48,6 +57,8 @@ export default function NavBar() {
                 History
               </a>
             </li>
+            </>
+            }
             <li className="nav-item">
               <a className="nav-link" href="#/alldata/">
                 AllData
@@ -56,6 +67,6 @@ export default function NavBar() {
           </ul>
         </div>
       </nav>
-    </>
-  );
+    </Container>
+  ); 
 }
